@@ -24,6 +24,8 @@ BuildRequires:	glib-devel
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_ulibdir	%{_prefix}/lib
+
 %description
 Ghostscript is a PostScript interpreter. It can render both PostScript
 and PDF compliant files to devices which include an X window, many
@@ -148,14 +150,14 @@ echo ".so ps2pdf.1" > $RPM_BUILD_ROOT%{_mandir}/de/man1/ps2pdf13.1
 
 ln -sf gs $RPM_BUILD_ROOT%{_bindir}/gsc
 ln -sf gs $RPM_BUILD_ROOT%{_bindir}/ghostscript
-ln -sf gstoraster $RPM_BUILD_ROOT%{_libdir}/cups/filter/pdftoraster
-ln -sf gstoraster $RPM_BUILD_ROOT%{_libdir}/cups/filter/pstoraster
+ln -sf gstoraster $RPM_BUILD_ROOT%{_ulibdir}/cups/filter/pdftoraster
+ln -sf gstoraster $RPM_BUILD_ROOT%{_ulibdir}/cups/filter/pstoraster
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	-p /usr/sbin/ldconfig
+%postun	-p /usr/sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -165,7 +167,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/ghostscript/%{version}
 %dir %{_datadir}/ghostscript/%{version}/lib
 
-%attr(755,root,root) %{_bindir}/dumphint
 %attr(755,root,root) %{_bindir}/dvipdf
 %attr(755,root,root) %{_bindir}/eps2eps
 %attr(755,root,root) %{_bindir}/font2c
@@ -226,10 +227,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files cups
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/cups/filter/gstopxl
-%attr(755,root,root) %{_libdir}/cups/filter/gstoraster
-%attr(755,root,root) %{_libdir}/cups/filter/pdftoraster
-%attr(755,root,root) %{_libdir}/cups/filter/pstoraster
+%attr(755,root,root) %{_ulibdir}/cups/filter/gstopxl
+%attr(755,root,root) %{_ulibdir}/cups/filter/gstoraster
+%attr(755,root,root) %{_ulibdir}/cups/filter/pdftoraster
+%attr(755,root,root) %{_ulibdir}/cups/filter/pstoraster
 %{_datadir}/cups/model/pxlcolor.ppd
 %{_datadir}/cups/model/pxlmono.ppd
 /etc/cups/gstoraster.convs
