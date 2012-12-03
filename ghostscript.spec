@@ -3,11 +3,12 @@
 Summary:	PostScript & PDF interpreter and renderer
 Name:		ghostscript
 Version:	9.06
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/ghostscript/%{name}-%{version}.tar.bz2
 # Source0-md5:	46f9ebe40dc52755287b30704270db11
+Patch0:		%{name}-cups-filters.patch
 URL:		http://www.ghostscript.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -74,8 +75,9 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 
 %prep
 %setup -q
+%patch0 -p1
 
-rm -rf jpeg libpng zlib jasper expat tiff lcms freetype
+%{__rm} -r expat freetype icclib jasper jpeg lcms2 libpng openjpeg zlib cups/libs
 
 %build
 %{__aclocal}
@@ -150,8 +152,6 @@ echo ".so ps2pdf.1" > $RPM_BUILD_ROOT%{_mandir}/de/man1/ps2pdf13.1
 
 ln -sf gs $RPM_BUILD_ROOT%{_bindir}/gsc
 ln -sf gs $RPM_BUILD_ROOT%{_bindir}/ghostscript
-ln -sf gstoraster $RPM_BUILD_ROOT%{_ulibdir}/cups/filter/pdftoraster
-ln -sf gstoraster $RPM_BUILD_ROOT%{_ulibdir}/cups/filter/pstoraster
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -229,11 +229,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_ulibdir}/cups/filter/gstopxl
 %attr(755,root,root) %{_ulibdir}/cups/filter/gstoraster
-%attr(755,root,root) %{_ulibdir}/cups/filter/pdftoraster
-%attr(755,root,root) %{_ulibdir}/cups/filter/pstoraster
+%{_datadir}/cups/mime/gstoraster.convs
 %{_datadir}/cups/model/pxlcolor.ppd
 %{_datadir}/cups/model/pxlmono.ppd
-/etc/cups/gstoraster.convs
 
 %files gtk
 %defattr(644,root,root,755)
