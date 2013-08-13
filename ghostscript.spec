@@ -2,12 +2,12 @@
 
 Summary:	PostScript & PDF interpreter and renderer
 Name:		ghostscript
-Version:	9.06
-Release:	2
+Version:	9.07
+Release:	1
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://downloads.sourceforge.net/ghostscript/%{name}-%{version}.tar.bz2
-# Source0-md5:	46f9ebe40dc52755287b30704270db11
+# Source0-md5:	eea27befc1e85bef6d4768202f6b03a5
 Patch0:		%{name}-cups-filters.patch
 URL:		http://www.ghostscript.com/
 BuildRequires:	autoconf
@@ -77,7 +77,7 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 %setup -q
 %patch0 -p1
 
-%{__rm} -r expat freetype icclib jasper jpeg lcms2 libpng openjpeg zlib cups/libs
+%{__rm} -r expat freetype jpeg lcms lcms2 libpng openjpeg zlib cups/libs
 
 %build
 %{__aclocal}
@@ -92,7 +92,6 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 	--with-ijs		\
 	--with-install-cups	\
 	--with-jbig2dec		\
-	--with-omni		\
 	--with-system-libtiff 	\
 	--with-x		\
 	--without-luratech
@@ -183,7 +182,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ijs_server_example
 %attr(755,root,root) %{_bindir}/pdf2dsc
 %attr(755,root,root) %{_bindir}/pdf2ps
-%attr(755,root,root) %{_bindir}/pdfopt
 %attr(755,root,root) %{_bindir}/pf2afm
 %attr(755,root,root) %{_bindir}/pfbtopfa
 %attr(755,root,root) %{_bindir}/printafm
@@ -227,8 +225,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files cups
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_ulibdir}/cups/filter/gstopxl
-%attr(755,root,root) %{_ulibdir}/cups/filter/gstoraster
 %{_datadir}/cups/mime/gstoraster.convs
 %{_datadir}/cups/model/pxlcolor.ppd
 %{_datadir}/cups/model/pxlmono.ppd
