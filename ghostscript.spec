@@ -2,13 +2,12 @@
 
 Summary:	PostScript & PDF interpreter and renderer
 Name:		ghostscript
-Version:	9.07
+Version:	9.09
 Release:	1
 License:	GPL
 Group:		Applications/Graphics
-Source0:	http://downloads.sourceforge.net/ghostscript/%{name}-%{version}.tar.bz2
-# Source0-md5:	eea27befc1e85bef6d4768202f6b03a5
-Patch0:		%{name}-cups-filters.patch
+Source0:	http://downloads.ghostscript.com/public/%{name}-%{version}.tar.bz2
+# Source0-md5:	4f47c29daae8e567ebdef842b7e0f8ea
 URL:		http://www.ghostscript.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -49,14 +48,6 @@ Requires:	%{name} = %{version}-%{release}
 %description ijs-devel
 IJS development files.
 
-%package cups
-Summary:	Ghostscript CUPS files
-Group:		Applications
-Requires:	%{name} = %{version}-%{release}
-
-%description cups
-Ghostscript CUPS files.
-
 %package gtk
 Summary:	Ghostscript with GTK+ console
 Group:		Applications/Graphics
@@ -75,7 +66,6 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %{__rm} -r expat freetype jpeg lcms lcms2 libpng openjpeg zlib cups/libs
 
@@ -129,7 +119,7 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/ghostscript/lib,%{_libdir},%{_includedir}
 
 # Headers
 install psi/{iapi,ierrors}.h $RPM_BUILD_ROOT%{_includedir}/ghostscript
-install base/gdevdsp.h $RPM_BUILD_ROOT%{_includedir}/ghostscript
+install devices/gdevdsp.h $RPM_BUILD_ROOT%{_includedir}/ghostscript
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/doc \
 	$RPM_BUILD_ROOT%{_bindir}/*.sh \
@@ -222,12 +212,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/ijs
 %{_libdir}/libijs.la
 %{_pkgconfigdir}/*.pc
-
-%files cups
-%defattr(644,root,root,755)
-%{_datadir}/cups/mime/gstoraster.convs
-%{_datadir}/cups/model/pxlcolor.ppd
-%{_datadir}/cups/model/pxlmono.ppd
 
 %files gtk
 %defattr(644,root,root,755)
