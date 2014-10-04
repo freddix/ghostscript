@@ -2,17 +2,18 @@
 
 Summary:	PostScript & PDF interpreter and renderer
 Name:		ghostscript
-Version:	9.14
+Version:	9.15
 Release:	1
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://downloads.ghostscript.com/public/%{name}-%{version}.tar.bz2
-# Source0-md5:	75f2e8ab8891d052ade9b64eb4eb5294
+# Source0-md5:	0ee21d975c67a4883ba66bcc332418f5
 URL:		http://www.ghostscript.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	cups-devel
 BuildRequires:	docbook-style-dsssl
+BuildRequires:	libpaper-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
@@ -83,10 +84,11 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 	--with-ijs		\
 	--with-install-cups	\
 	--with-jbig2dec		\
+	--with-libpaper		\
 	--with-system-libtiff 	\
 	--with-x		\
-	--without-luratech
-
+	--without-luratech	\
+	--without-omni
 cd ijs
 %{__libtoolize}
 %{__aclocal}
