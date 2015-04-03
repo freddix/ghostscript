@@ -2,12 +2,12 @@
 
 Summary:	PostScript & PDF interpreter and renderer
 Name:		ghostscript
-Version:	9.15
+Version:	9.16
 Release:	1
 License:	GPL
 Group:		Applications/Graphics
 Source0:	http://downloads.ghostscript.com/public/%{name}-%{version}.tar.bz2
-# Source0-md5:	0ee21d975c67a4883ba66bcc332418f5
+# Source0-md5:	21732fd6e39acc283bc623b8842cbfbb
 URL:		http://www.ghostscript.com/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -68,7 +68,7 @@ X Window System output drivers for Ghostscript: x11, x11alpha.
 %prep
 %setup -q
 
-%{__rm} -r expat freetype jpeg lcms lcms2 libpng openjpeg zlib cups/libs
+%{__rm} -r expat freetype jpeg lcms2 libpng openjpeg zlib cups/libs
 %{__sed} -i 's/^ZLIBDIR=src/ZLIBDIR=$includedir/' configure.ac
 
 %build
